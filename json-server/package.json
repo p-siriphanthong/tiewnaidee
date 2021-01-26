@@ -1,5 +1,5 @@
 {
-  "name": "json-server",
+  "name": "tiewnaidee-json-server",
   "version": "1.0.0",
   "scripts": {
     "start": "json-server --watch db.json --port 9000"
