@@ -21,6 +21,14 @@
     "react/jsx-filename-extension": [
       1,
       { "extensions": [".ts", ".tsx", ".test.js"] }
-    ]
+    ],
+    "react/jsx-props-no-spreading": 0,
+    "react/require-default-props": 0,
+    "react/no-array-index-key": 0,
+    "import/prefer-default-export": 0,
+    "jsx-a11y/click-events-have-key-events": 0,
+    "jsx-a11y/no-static-element-interactions": 0,
+    "@typescript-eslint/no-inferrable-types": 0,
+    "@typescript-eslint/no-shadow": 0
   }
 }

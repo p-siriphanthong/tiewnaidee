@@ -1,12 +1,35 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import './index.css'
+import { createGlobalStyle, ThemeProvider } from 'styled-components'
+import { normalize } from 'styled-normalize'
+import { theme } from 'styled-tools'
+
 import App from './App'
+import { theme as themeConfig } from './theme'
 import * as serviceWorker from './serviceWorker'
+
+const GlobalStyle = createGlobalStyle`
+  ${normalize}
+
+  * {
+    font-family: 'Kanit', sans-serif;
+    font-weight: 300;
+    line-height: 1.4;
+    outline: none;
+    box-sizing: border-box;
+  }
+ 
+  body {
+    color: ${theme('colors.textPrimary')};
+  }
+`
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <ThemeProvider theme={themeConfig}>
+      <GlobalStyle />
+      <App />
+    </ThemeProvider>
   </React.StrictMode>,
   document.getElementById('root')
 )
