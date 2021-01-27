@@ -4,16 +4,20 @@ import hoistNonReactStatics from 'hoist-non-react-statics'
 import { Trip } from '../../models/Trip'
 import { useQueryParamState } from '../../hooks/useQueryParamState'
 import { useDebouncedState } from '../../hooks/useDebouncedState'
-
-// TODO: get from api
-import tripData from './db.json'
+import { useTripList } from '../../hooks/useTripList'
 
 interface HomePageProps {
   trips: Trip[]
   keyword: string
+  isLoadingTrips: boolean
+  isLoadingMoreTrips: boolean
+  canLoadMoreTrips: boolean
+  loadMoreTrips: () => void
   onChangeKeyword: (keyword: string) => void
   onSelectTripTag: (tag: string) => void
 }
+
+const LIMIT = 5
 
 export function withHomePage(Component: React.FC<HomePageProps>) {
   function WithHomePage() {
@@ -22,6 +26,20 @@ export function withHomePage(Component: React.FC<HomePageProps>) {
       keyword,
       500
     )
+    const {
+      data: trips,
+      isLoading: isLoadingTrips,
+      isFetchingNextPage: isLoadingMoreTrips,
+      hasNextPage: hasMoreTrips = false,
+      fetchNextPage: loadMoreTrips,
+      isError,
+      error,
+    } = useTripList({
+      queryParams: {
+        keyword: searchingKeyword,
+        limit: LIMIT,
+      },
+    })
 
     function onSelectTripTag(tag: string) {
       setKeyword(tag)
@@ -29,12 +47,17 @@ export function withHomePage(Component: React.FC<HomePageProps>) {
     }
 
     const pageProps = {
-      trips: tripData.trips,
+      trips,
       keyword,
+      isLoadingTrips,
+      isLoadingMoreTrips,
+      canLoadMoreTrips: hasMoreTrips && !isLoadingMoreTrips,
+      loadMoreTrips,
       onChangeKeyword: setKeyword,
       onSelectTripTag,
     }
 
+    if (isError) throw error
     return <Component {...pageProps} />
   }
 

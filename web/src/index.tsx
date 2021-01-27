@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { QueryClient, QueryClientProvider } from 'react-query'
 import { createGlobalStyle, ThemeProvider } from 'styled-components'
 import { normalize } from 'styled-normalize'
 import { theme } from 'styled-tools'
@@ -7,6 +8,8 @@ import { theme } from 'styled-tools'
 import App from './App'
 import { theme as themeConfig } from './theme'
 import * as serviceWorker from './serviceWorker'
+import { AppClientProvider } from './hooks/useAppClient'
+import { AppClient } from './lib/AppClient'
 
 const GlobalStyle = createGlobalStyle`
   ${normalize}
@@ -24,12 +27,19 @@ const GlobalStyle = createGlobalStyle`
   }
 `
 
+const appClient = new AppClient()
+const queryClient = new QueryClient()
+
 ReactDOM.render(
   <React.StrictMode>
-    <ThemeProvider theme={themeConfig}>
-      <GlobalStyle />
-      <App />
-    </ThemeProvider>
+    <QueryClientProvider client={queryClient}>
+      <AppClientProvider client={appClient}>
+        <ThemeProvider theme={themeConfig}>
+          <GlobalStyle />
+          <App />
+        </ThemeProvider>
+      </AppClientProvider>
+    </QueryClientProvider>
   </React.StrictMode>,
   document.getElementById('root')
 )

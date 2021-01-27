@@ -16,6 +16,7 @@ function TripCard({
   title,
   url,
   description,
+  shortContent,
   photos,
   tags,
   onSelectTripTag,
@@ -36,7 +37,7 @@ function TripCard({
           </a>
           <div className='description'>{description}</div>
           <div className='content'>
-            <div>{description}</div>
+            <div>{shortContent}</div>
             <a href={url} target='__blank'>
               อ่านต่อ
             </a>
@@ -44,27 +45,18 @@ function TripCard({
           <div className='tags'>
             หมวด -{' '}
             {tags.map((tag, index) => (
-              <>
-                <span
-                  key={`trip-${eid}-tag-${index}`}
-                  onClick={() => onSelectTripTag(tag)}
-                >
-                  {tag}
-                </span>
+              <div key={`trip-${eid}-tag-${index}`}>
+                <span onClick={() => onSelectTripTag(tag)}>{tag}</span>
                 {index < tags.length - 2 ? ', ' : ''}
                 {index === tags.length - 2 ? ' และ ' : ''}
-              </>
+              </div>
             ))}
           </div>
         </div>
         <div className='other-photos'>
           {otherPhotos.slice(0, numberOfMorePhoto).map((photo, index) => (
-            <div>
-              <Photo
-                key={`trip-${eid}-photo-${index}`}
-                src={photo}
-                alt={title}
-              />
+            <div key={`trip-${eid}-photo-${index}`}>
+              <Photo src={photo} alt={title} />
               {index === numberOfMorePhoto - 1 && numberOfRestPhoto ? (
                 <div className='more'>+{numberOfRestPhoto}</div>
               ) : null}
@@ -142,9 +134,13 @@ const StyledTripCard = styled(TripCard)`
         color: ${theme('colors.textSecondary')};
         font-size: 10px;
 
-        > span {
-          text-decoration: underline;
-          cursor: pointer;
+        > div {
+          display: contents;
+
+          > span {
+            text-decoration: underline;
+            cursor: pointer;
+          }
         }
       }
     }
@@ -161,7 +157,7 @@ const StyledTripCard = styled(TripCard)`
         position: relative;
 
         > .more {
-          color: #ffffff;
+          color: ${theme('colors.white')};
           background-color: rgba(0, 0, 0, 0.6);
           position: absolute;
           top: 0;
