@@ -5,9 +5,9 @@ const bodyParser = require('body-parser')
 const rateLimit = require('express-rate-limit')
 
 const routes = require('./routes')
+const { port } = require('./config')
 
 const app = express()
-const PORT = process.env.PORT || 5000
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
@@ -30,6 +30,6 @@ app.use(limiter)
 // API routes
 app.use('/api', routes)
 
-app.listen(PORT, () => {
-  console.log(`API-Gateway is running on port ${PORT}`)
+app.listen(port, () => {
+  console.log(`API-Gateway is running on port ${port}`)
 })

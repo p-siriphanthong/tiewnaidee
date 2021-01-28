@@ -3,13 +3,13 @@ import axios, { AxiosInstance } from 'axios'
 import { apiUrl } from './config'
 
 export class AppClient {
-  baseURL: string
+  baseUrl: string
 
   client: AxiosInstance
 
   constructor() {
-    this.baseURL = apiUrl
-    this.client = axios.create({ baseURL: this.baseURL })
+    this.baseUrl = apiUrl
+    this.client = axios.create({ baseURL: this.baseUrl })
 
     this.setupClient()
   }
