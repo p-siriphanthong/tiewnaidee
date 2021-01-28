@@ -17,7 +17,7 @@ const GlobalStyle = createGlobalStyle`
   *, *:active, *:focus {
     font-family: 'Kanit', sans-serif;
     font-weight: 300;
-    line-height: 1.4;
+    line-height: 1.5;
     outline: none !important;
     box-sizing: border-box;
   }
