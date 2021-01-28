@@ -1,6 +1,7 @@
 import React from 'react'
 import Headroom from 'react-headroom'
 import { Waypoint } from 'react-waypoint'
+import Carousel, { Modal, ModalGateway } from 'react-images'
 import styled from 'styled-components'
 import { theme } from 'styled-tools'
 
@@ -17,9 +18,12 @@ interface HomePageProps {
   isLoadingTrips: boolean
   isLoadingMoreTrips: boolean
   canLoadMoreTrips: boolean
+  showingTripPhotos: { sources: string[]; currentIndex: number } | null
   loadMoreTrips: () => void
   onChangeKeyword: (keyword: string) => void
   onSelectTripTag: (tag: string) => void
+  showTripPhotos: (photos: string[], index?: number) => void
+  clearShowingTripPhotos: () => void
 }
 
 function HomePage({
@@ -29,49 +33,65 @@ function HomePage({
   isLoadingTrips,
   isLoadingMoreTrips,
   canLoadMoreTrips,
+  showingTripPhotos,
   loadMoreTrips,
   onChangeKeyword,
   onSelectTripTag,
+  showTripPhotos,
+  clearShowingTripPhotos,
 }: HomePageProps) {
   const isEmpty = trips.length === 0
   return (
-    <div className={className}>
-      <Headroom pinStart={200}>
-        <h1 className='title'>เที่ยวไหนดี</h1>
-        <div className='search-box'>
-          <TextField
-            value={keyword}
-            placeholder='หาที่เที่ยวแล้วไปกัน...'
-            onChange={event => onChangeKeyword(event.target.value)}
-          />
+    <>
+      <div className={className}>
+        <Headroom pinStart={200}>
+          <h1 className='title'>เที่ยวไหนดี</h1>
+          <div className='search-box'>
+            <TextField
+              value={keyword}
+              placeholder='หาที่เที่ยวแล้วไปกัน...'
+              onChange={event => onChangeKeyword(event.target.value)}
+            />
+          </div>
+        </Headroom>
+        <div
+          className={`content ${isLoadingTrips || isEmpty ? 'no-content' : ''}`}
+        >
+          {isLoadingTrips ? (
+            <LoadingIndicator />
+          ) : (
+            <>
+              {isEmpty ? (
+                <div className='empty'>ไม่พบทริปเที่ยว</div>
+              ) : (
+                <>
+                  {trips.map(trip => (
+                    <TripCard
+                      {...trip}
+                      key={`trip-${trip.eid}`}
+                      onSelectTripTag={onSelectTripTag}
+                      showTripPhotos={showTripPhotos}
+                    />
+                  ))}
+                  {isLoadingMoreTrips && <LoadingMoreIndicator />}
+                  {canLoadMoreTrips && <Waypoint onEnter={loadMoreTrips} />}
+                </>
+              )}
+            </>
+          )}
         </div>
-      </Headroom>
-      <div
-        className={`content ${isLoadingTrips || isEmpty ? 'no-content' : ''}`}
-      >
-        {isLoadingTrips ? (
-          <LoadingIndicator />
-        ) : (
-          <>
-            {isEmpty ? (
-              <div className='empty'>ไม่พบทริปเที่ยว</div>
-            ) : (
-              <>
-                {trips.map(trip => (
-                  <TripCard
-                    {...trip}
-                    key={`trip-${trip.eid}`}
-                    onSelectTripTag={onSelectTripTag}
-                  />
-                ))}
-                {isLoadingMoreTrips && <LoadingMoreIndicator />}
-                {canLoadMoreTrips && <Waypoint onEnter={loadMoreTrips} />}
-              </>
-            )}
-          </>
-        )}
       </div>
-    </div>
+      <ModalGateway>
+        {showingTripPhotos && (
+          <Modal onClose={clearShowingTripPhotos}>
+            <Carousel
+              views={showingTripPhotos.sources.map(source => ({ source }))}
+              currentIndex={showingTripPhotos.currentIndex}
+            />
+          </Modal>
+        )}
+      </ModalGateway>
+    </>
   )
 }
 

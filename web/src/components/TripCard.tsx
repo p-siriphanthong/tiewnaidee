@@ -8,6 +8,7 @@ import { Trip } from '../models/Trip'
 interface TripCardProps extends Trip {
   className?: string
   onSelectTripTag: (tag: string) => void
+  showTripPhotos: (photos: string[], index?: number) => void
 }
 
 function TripCard({
@@ -20,6 +21,7 @@ function TripCard({
   photos,
   tags,
   onSelectTripTag,
+  showTripPhotos,
 }: TripCardProps) {
   const [mainPhoto, ...otherPhotos] = photos
   const numberOfMorePhoto = 3
@@ -27,9 +29,9 @@ function TripCard({
 
   return (
     <div className={className}>
-      <a className='main-photo' href={url} target='__blank'>
+      <div className='main-photo' onClick={() => showTripPhotos(photos)}>
         <Photo src={mainPhoto} alt={title} ratio={2 / 3} />
-      </a>
+      </div>
       <div className='detail'>
         <div>
           <a className='title' href={url} target='__blank'>
@@ -55,7 +57,10 @@ function TripCard({
         </div>
         <div className='other-photos'>
           {otherPhotos.slice(0, numberOfMorePhoto).map((photo, index) => (
-            <div key={`trip-${eid}-photo-${index}`}>
+            <div
+              key={`trip-${eid}-photo-${index}`}
+              onClick={() => showTripPhotos(photos, index + 1)}
+            >
               <Photo src={photo} alt={title} />
               {index === numberOfMorePhoto - 1 && numberOfRestPhoto ? (
                 <div className='more'>+{numberOfRestPhoto}</div>
@@ -80,6 +85,7 @@ const StyledTripCard = styled(TripCard)`
     > ${Photo} {
       border-radius: 10px;
       overflow: hidden;
+      cursor: pointer;
     }
   }
 
@@ -156,6 +162,10 @@ const StyledTripCard = styled(TripCard)`
         overflow: hidden;
         position: relative;
 
+        > ${Photo} {
+          cursor: pointer;
+        }
+
         > .more {
           color: ${theme('colors.white')};
           background-color: rgba(0, 0, 0, 0.6);
@@ -167,6 +177,7 @@ const StyledTripCard = styled(TripCard)`
           display: flex;
           align-items: center;
           justify-content: center;
+          cursor: pointer;
         }
       }
     }

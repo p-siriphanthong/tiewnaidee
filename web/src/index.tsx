@@ -14,11 +14,11 @@ import { AppClient } from './lib/AppClient'
 const GlobalStyle = createGlobalStyle`
   ${normalize}
 
-  * {
+  *, *:active, *:focus {
     font-family: 'Kanit', sans-serif;
     font-weight: 300;
     line-height: 1.4;
-    outline: none;
+    outline: none !important;
     box-sizing: border-box;
   }
  
