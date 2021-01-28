@@ -26,7 +26,7 @@ export class AppClient {
   async getTrips(
     params: {
       keyword?: string
-      cursor?: string
+      cursor?: number
       limit?: number
     } = {}
   ) {
