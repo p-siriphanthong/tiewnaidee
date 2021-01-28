@@ -30,6 +30,8 @@ app.use(limiter)
 // API routes
 app.use('/api', routes)
 
-app.listen(port, () => {
+const server = app.listen(port, () => {
   console.log(`API-Gateway is running on port ${port}`)
 })
+
+module.exports = { app, server }
