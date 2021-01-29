@@ -4,8 +4,8 @@ import React from 'react'
 import { render } from '@testing-library/react'
 import { QueryClient, QueryClientProvider } from 'react-query'
 
-import { AppClientProvider } from './hooks/useAppClient'
-import { AppClient } from './lib/__mocks__/AppClient'
+import { AppClientProvider } from '../hooks/useAppClient'
+import { AppClient } from '../lib/__mocks__/AppClient'
 
 const appClient = new AppClient()
 const queryClient = new QueryClient()

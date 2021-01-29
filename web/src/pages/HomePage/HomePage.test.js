@@ -6,9 +6,9 @@ import {
   fireEvent,
   waitForElement,
   waitForElementToBeRemoved,
-} from '../../test-utils'
-import * as mockData from '../../lib/__mocks__/trips.fixture'
+} from '../../test-utils/react'
 import { HomePage } from '.'
+import * as mockData from '../../lib/__mocks__/trips.fixture'
 
 beforeEach(() => {
   render(<HomePage />)
