@@ -10,10 +10,10 @@ function LoadingMoreIndicator({ className }: LoadingMoreIndicatorProps) {
   return (
     <div className={className}>
       <div className='lds-ellipsis'>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
+        <div />
+        <div />
+        <div />
+        <div />
       </div>
     </div>
   )

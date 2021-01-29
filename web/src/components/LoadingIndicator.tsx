@@ -10,10 +10,10 @@ function LoadingIndicator({ className }: LoadingIndicatorProps) {
   return (
     <div className={className}>
       <div className='lds-ring'>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
+        <div />
+        <div />
+        <div />
+        <div />
       </div>
     </div>
   )
