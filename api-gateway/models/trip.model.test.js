@@ -1,4 +1,4 @@
-const Trip = require('../../models/trip.model')
+const Trip = require('./trip.model')
 
 describe('Trip Model', () => {
   it('should create an instance successfully', () => {

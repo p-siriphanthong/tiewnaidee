@@ -4,8 +4,7 @@
   "scripts": {
     "dev": "nodemon server",
     "start": "node server",
-    "test": "jest --watchAll --maxWorkers=1",
-    "test:coverage": "jest --coverage --maxWorkers=1"
+    "test": "jest --watchAll --maxWorkers=1"
   },
   "dependencies": {
     "axios": "^0.21.1",

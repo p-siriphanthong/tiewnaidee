@@ -1,7 +1,7 @@
 const request = require('supertest')
-const { app, server } = require('../../server')
+const { app, server } = require('../server')
 
-jest.mock('../../services/json-server')
+jest.mock('../services/json-server')
 
 afterAll(() => {
   server.close()
