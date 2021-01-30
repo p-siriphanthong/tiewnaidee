@@ -73,8 +73,18 @@ function HomePage({
                       showTripPhotos={showTripPhotos}
                     />
                   ))}
-                  {isLoadingMoreTrips && <LoadingMoreIndicator />}
-                  {canLoadMoreTrips && <Waypoint onEnter={loadMoreTrips} />}
+                  {isLoadingMoreTrips && (
+                    <>
+                      <div>LoadingMoreIndicator</div>
+                      <LoadingMoreIndicator />
+                    </>
+                  )}
+                  {canLoadMoreTrips && (
+                    <>
+                      <div>Waypoint</div>
+                      <Waypoint onEnter={loadMoreTrips} />
+                    </>
+                  )}
                 </>
               )}
             </>
@@ -102,7 +112,7 @@ const StyledHomePage = styled(HomePage)`
   margin: 0 auto;
 
   > .headroom-wrapper {
-    height: auto !important;
+    height: 120px !important;
 
     > .headroom {
       > .title {
