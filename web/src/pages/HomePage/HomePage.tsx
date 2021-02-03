@@ -73,18 +73,8 @@ function HomePage({
                       showTripPhotos={showTripPhotos}
                     />
                   ))}
-                  {isLoadingMoreTrips && (
-                    <>
-                      <div>LoadingMoreIndicator</div>
-                      <LoadingMoreIndicator />
-                    </>
-                  )}
-                  {canLoadMoreTrips && (
-                    <>
-                      <div>Waypoint</div>
-                      <Waypoint onEnter={loadMoreTrips} />
-                    </>
-                  )}
+                  {isLoadingMoreTrips && <LoadingMoreIndicator />}
+                  {canLoadMoreTrips && <Waypoint onEnter={loadMoreTrips} />}
                 </>
               )}
             </>
